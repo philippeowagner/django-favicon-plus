@@ -1,0 +1,6 @@
+include README.md
+include LICENSE
+include requirements.txt
+recursive-include favicon/templates *
+recursive-include favicon *.html *.png *.gif *js *.css *jpg *jpeg *svg *py
+global-exclude *.orig *.pyc *.log *.swp
