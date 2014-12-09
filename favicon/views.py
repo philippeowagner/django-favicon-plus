@@ -12,6 +12,7 @@ from django.conf import settings
 def favicon(request, template_name='favicon/index.html'):
     if 'favicon' in request.path:
         fav = get_object_or_404(Favicon, isFavicon=True)
+        favicon = fav.get_favicon(64,'icon')
         link = settings.MEDIA_URL
         link += fav.faviconImage.name
         return redirect(link)

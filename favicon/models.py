@@ -8,11 +8,6 @@ from PIL import Image
 import StringIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
-
-#sizes = [16,32,64]
-sizes = [16,32,57,72,86,96,114,120,128,144,152,195,228]
-sizes = getattr(settings, 'FAVICON_SIZES', sizes)
-
 config = {
     'shortcut icon': [16 ,32 ,48 ,128, 192],
     'touch-icon': [196],
@@ -21,79 +16,31 @@ config = {
     'apple-touch-icon-precomposed': [57, 72, 76, 114, 120, 144, 152,180],
 }
 
+config = getattr(settings, 'FAVICON_CONFIG', config)
+
 
 @python_2_unicode_compatible
 class Favicon(models.Model):
-    verbose_name = 'Favicon'
-    verbose_name_plural = 'Favicons'
 
     title = models.CharField(max_length=100)
     faviconImage = models.ImageField(upload_to="favicon")
-    precomposed = models.BooleanField(default=False)
 
     isFavicon = models.BooleanField(default=True)
 
+    class Meta:
+        verbose_name = 'Favicon'
+        verbose_name_plural = 'Favicons'
 
     def get_favicons(self):
         favicons = []
         for rel in config:
             for size in config[rel]:
-                favicons.append(FaviconImg.objects.get(faviconFK=self, size=size, rel=rel))
+                favicons.append(self.get_favicon(size, rel))
         return favicons
-
-    '''
-    def get_favicons(self):
-        return [self.get_favicon(n).faviconImage.name for n in sizes]
-        '''
-
-
-    '''
-    def get_favicons(self):
-        #favicons = []
-        #for n in sizes:
-        #    fav = self.get_favicon(n)
-        #    favicons.append(fav.faviconImages.name)
-
-        return favicons
-    '''
-
-    '''
-    def get_favicons(self):
-        objs = FaviconImg.objects.filter(faviconFK=self)
-        favicons = []
-        for n in sizes:
-            favs = objs.filter(size=n)
-            fav = favs.get()
-            favicons.append(fav.faviconImage.name)
-        return favicons
-    '''
-
-    '''
-    def get_favicons(self):
-        objs = FaviconImg.objects.filter(faviconFK=self)
-        favicons = []
-        for n in sizes:
-            favs = objs.filter(size=n)
-            try:
-                fav = objs.get()
-            except:
-                if favs:
-                    for obj in favs:
-                        obj.delete()
-                fav = self.get_favicon(n)
-            favicons.append(fav.faviconImage.name)
-        return favicons
-    '''
-
-
-    def get_default_favicon(self):
-
 
     def __str__(self):
         return self.faviconImage.name
 
-    # def __unicode__(self):
-    #    return self.faviconImage.name
 
     def get_absolute_url(self):
         return "%s" % self.faviconImage.name
@@ -112,7 +59,6 @@ class Favicon(models.Model):
 
             fav.faviconImage=tmpFile
             fav.save()
-
         return fav
 
 
@@ -139,8 +85,6 @@ class Favicon(models.Model):
         #if self.faviconImage:
         #    for n in sizes:
         #        self.get_favicon(n,update=update)
-
-        
 
 
 class FaviconImg(models.Model):
