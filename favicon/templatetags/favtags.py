@@ -12,8 +12,8 @@ register = template.Library()
 media_url = getattr(settings, 'MEDIA_URL', False)
 
 
-@register.simple_tag
-def placeFavicon():
+@register.simple_tag(takes_context=True)
+def placeFavicon(context):
     """
     Gets Favicon-URL for the Model.
 
@@ -34,8 +34,22 @@ def placeFavicon():
 
     favs = fav.get_favicons()
 
-    html = ''
 
+
+    request = context['request']
+
+    html = '<link rel="shortcut icon" href="http://%s/favicon.ico"/>' % (request.get_host(),)
+
+
+
+    '''
+    for rel in config:
+        for size in sorted(config[rel],reverse=True):
+            n = fav.get_favicon(size=size,rel=rel)
+            html += '<link rel="%s" size ="%sx%s" href="%s%s"/>' % ( n.rel, n.size, n.size, media_url, n.faviconImage.name)
+    '''
+
+    
     for rel in config:
         for size in sorted(config[rel],reverse=True)[:-1]:
             n = fav.get_favicon(size=size,rel=rel)
@@ -43,7 +57,7 @@ def placeFavicon():
         for size in sorted(config[rel],reverse=True)[-1:]:
             n = fav.get_favicon(size=size,rel=rel)
             html += '<link rel="%s" size ="any" href="%s%s"/>' % ( n.rel, media_url, n.faviconImage.name)
-
+    
 
     
 

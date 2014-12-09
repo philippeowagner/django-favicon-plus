@@ -14,9 +14,11 @@ sizes = [16,32,57,72,86,96,114,120,128,144,152,195,228]
 sizes = getattr(settings, 'FAVICON_SIZES', sizes)
 
 config = {
-    'shortcut icon': [16,32,48,128],
-    'apple-touch-icon': [57, 72, 114, 144],
-    'apple-touch-icon-precomposed': [57, 72, 114, 144],
+    'shortcut icon': [16 ,32 ,48 ,128, 192],
+    'touch-icon': [196],
+    'icon': [196],
+    'apple-touch-icon': [57, 72, 114, 144, 180],
+    'apple-touch-icon-precomposed': [57, 72, 76, 114, 120, 144, 152,180],
 }
 
 
@@ -83,6 +85,8 @@ class Favicon(models.Model):
         return favicons
     '''
 
+
+    def get_default_favicon(self):
 
 
     def __str__(self):

@@ -54,3 +54,5 @@ highest resolution for ipad retina 144x144.png precomposed(=iOS won’t add any 
 Android versions 1.5 and 1.6 will read the second tag (with "-precomposed"), and versions 2.1 and newer will read the first tag.
 
 Google's specifications say that you should use 48x48 pixel PNGs, but you can use a large image (128x128), like Google does for its own apps.
+
+https://mathiasbynens.be/notes/touch-icons
