@@ -24,7 +24,12 @@ def placeFavicon(context):
     if not media_url:
         raise ImproperlyConfigured('MEDIA_URL not found in settings')
 
-    fav = Favicon.objects.get(isFavicon=True)
+    fav = Favicon.objects.filter(isFavicon=True)
+    if not fav:
+        return '<!-- no favicon --'
+    for n in fav[1:]:
+        n.isFavicon = False
+    fav = fav[0]
     '''
     if a:
         fav = a[0]
