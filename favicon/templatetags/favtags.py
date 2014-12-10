@@ -26,7 +26,7 @@ def placeFavicon(context):
 
     fav = Favicon.objects.filter(isFavicon=True)
     if not fav:
-        return '<!-- no favicon --'
+        return '<!-- no favicon -->'
     for n in fav[1:]:
         n.isFavicon = False
     fav = fav[0]
