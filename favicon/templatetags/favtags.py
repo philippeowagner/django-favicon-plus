@@ -43,11 +43,13 @@ def placeFavicon(context):
     #html += '<link rel="shortcut icon" href="http://%s/favicon.ico"/>'
 
     for rel in config:
-        for size in sorted(config[rel],reverse=True)[:-1]:
-            n = fav.get_favicon(size=size,rel=rel)
-            html += '<link rel="%s" size ="%sx%s" href="%s%s"/>' % ( n.rel, n.size, n.size, media_url, n.faviconImage.name)
-        for size in sorted(config[rel],reverse=True)[-1:]:
-            n = fav.get_favicon(size=size,rel=rel)
-            html += '<link rel="%s" size ="any" href="%s%s"/>' % ( n.rel, media_url, n.faviconImage.name)
+        for size in sorted(config[rel], reverse=True)[:-1]:
+            n = fav.get_favicon(size=size, rel=rel)
+            html += '<link rel="%s" size ="%sx%s" href="%s%s"/>' % (
+                n.rel, n.size, n.size, media_url, n.faviconImage.name)
+        for size in sorted(config[rel], reverse=True)[-1:]:
+            n = fav.get_favicon(size=size, rel=rel)
+            html += '<link rel="%s" size ="any" href="%s%s"/>' % (
+                n.rel, media_url, n.faviconImage.name)
 
     return html

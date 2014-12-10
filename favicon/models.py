@@ -9,11 +9,11 @@ import StringIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
 config = {
-    'shortcut icon': [16 ,32 ,48 ,128, 192],
+    'shortcut icon': [16, 32, 48, 128, 192],
     'touch-icon': [196],
     'icon': [196],
     'apple-touch-icon': [57, 72, 114, 144, 180],
-    'apple-touch-icon-precomposed': [57, 72, 76, 114, 120, 144, 152,180],
+    'apple-touch-icon-precomposed': [57, 72, 76, 114, 120, 144, 152, 180],
 }
 
 config = getattr(settings, 'FAVICON_CONFIG', config)
@@ -41,26 +41,27 @@ class Favicon(models.Model):
     def __str__(self):
         return self.faviconImage.name
 
-
     def get_absolute_url(self):
         return "%s" % self.faviconImage.name
 
     def get_favicon(self, size, rel, update=False):
-        fav, _ = FaviconImg.objects.get_or_create(faviconFK=self, size=size, rel=rel)
+        fav, _ = FaviconImg.objects.get_or_create(
+            faviconFK=self, size=size, rel=rel)
         if update and fav.faviconImage:
             fav.faviconImage.delete()
         if (self.faviconImage and not fav.faviconImage):
             tmp = Image.open(self.faviconImage.path)
-            tmp.thumbnail((size,size), Image.ANTIALIAS)
+            tmp.thumbnail((size, size), Image.ANTIALIAS)
 
             tmpIO = StringIO.StringIO()
             tmp.save(tmpIO, format='PNG')
-            tmpFile = InMemoryUploadedFile(tmpIO, None, 'fav-%s.png' % (size,), 'image/png', tmpIO.len, None)
+            tmpFile = InMemoryUploadedFile(
+                tmpIO, None, 'fav-%s.png' %
+                (size,), 'image/png', tmpIO.len, None)
 
-            fav.faviconImage=tmpFile
+            fav.faviconImage = tmpFile
             fav.save()
         return fav
-
 
     def save(self, *args, **kwargs):
         print 'testtesttest'
@@ -92,4 +93,3 @@ class FaviconImg(models.Model):
     size = models.IntegerField()
     rel = models.CharField(max_length=250, null=True)
     faviconImage = models.ImageField(upload_to='favicon')
-
