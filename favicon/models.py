@@ -3,7 +3,6 @@ from django.db import models
 
 from django.conf import settings
 
-
 from PIL import Image
 import StringIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
@@ -17,6 +16,9 @@ config = {
 }
 
 config = getattr(settings, 'FAVICON_CONFIG', config)
+
+def pre_delete_image(sender, instance, **kwargs):
+    instance.del_image()
 
 
 @python_2_unicode_compatible
@@ -44,12 +46,20 @@ class Favicon(models.Model):
     def get_absolute_url(self):
         return "%s" % self.faviconImage.name
 
+    def del_image(self):
+        self.faviconImage.delete()
+
     def get_favicon(self, size, rel, update=False):
+        """
+        get or create a favicon for size, rel(attr) and uploaded favicon
+        optional:
+            update=True
+        """
         fav, _ = FaviconImg.objects.get_or_create(
             faviconFK=self, size=size, rel=rel)
         if update and fav.faviconImage:
-            fav.faviconImage.delete()
-        if (self.faviconImage and not fav.faviconImage):
+            fav.del_image()
+        if self.faviconImage and not fav.faviconImage:
             tmp = Image.open(self.faviconImage.path)
             tmp.thumbnail((size, size), Image.ANTIALIAS)
 
@@ -64,18 +74,18 @@ class Favicon(models.Model):
         return fav
 
     def save(self, *args, **kwargs):
-        print 'testtesttest'
+        update = False
+        orig = Favicon.objects.get(pk=self.pk)
+        if orig.faviconImage is not self.faviconImage:
+            orig.del_image()
+            update = True
+
         if self.isFavicon:
             for n in Favicon.objects.exclude(pk=self.pk):
                 n.isFavicon = False
                 n.save()
 
         super(Favicon, self).save(*args, **kwargs)
-        orig = Favicon.objects.get(pk=self.pk)
-        update = True
-        #if self.faviconImage.name is not orig.faviconImage.name:
-        #    update = True
-        #print '%s , -------------------- upadte --------' % (update,)
 
         if self.faviconImage:
             for rel in config:
@@ -83,9 +93,8 @@ class Favicon(models.Model):
                     self.get_favicon(size=size,rel=rel, update=update)
 
 
-        #if self.faviconImage:
-        #    for n in sizes:
-        #        self.get_favicon(n,update=update)
+        #make sure default favicon is set
+        self.get_favicon(size=32, rel='shortcut icon')
 
 
 class FaviconImg(models.Model):
@@ -93,3 +102,14 @@ class FaviconImg(models.Model):
     size = models.IntegerField()
     rel = models.CharField(max_length=250, null=True)
     faviconImage = models.ImageField(upload_to='favicon')
+
+    def del_image(self):
+        self.faviconImage.delete()
+
+from django.db.models import signals
+
+from django.db.models.signals import pre_delete
+from django.dispatch.dispatcher import receiver
+
+signals.pre_delete.connect(pre_delete_image, sender=Favicon)
+signals.pre_delete.connect(pre_delete_image, sender=FaviconImg)
