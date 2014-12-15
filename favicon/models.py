@@ -75,10 +75,11 @@ class Favicon(models.Model):
 
     def save(self, *args, **kwargs):
         update = False
-        orig = Favicon.objects.get(pk=self.pk)
-        if orig.faviconImage is not self.faviconImage:
-            orig.del_image()
-            update = True
+        if Favicon.objects.filter(pk=self.pk):
+            orig = Favicon.objects.get(pk=self.pk)
+            if orig.faviconImage is not self.faviconImage:
+                orig.del_image()
+                update = True
 
         if self.isFavicon:
             for n in Favicon.objects.exclude(pk=self.pk):
