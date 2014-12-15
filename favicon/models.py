@@ -9,8 +9,8 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 
 config = {
     'shortcut icon': [16, 32, 48, 128, 192],
-    'touch-icon': [196],
-    'icon': [196],
+    'touch-icon': [192],
+    'icon': [192],
     'apple-touch-icon': [57, 72, 114, 144, 180],
     'apple-touch-icon-precomposed': [57, 72, 76, 114, 120, 144, 152, 180],
 }
