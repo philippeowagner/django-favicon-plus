@@ -1,5 +1,5 @@
 from django.contrib import admin
-from favicon.models import Favicon
+from favicon.models import Favicon, FaviconImg
 
 
 class FaviconAdmin(admin.ModelAdmin):
