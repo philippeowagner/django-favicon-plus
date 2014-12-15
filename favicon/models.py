@@ -77,7 +77,7 @@ class Favicon(models.Model):
         update = False
         if Favicon.objects.filter(pk=self.pk):
             orig = Favicon.objects.get(pk=self.pk)
-            if orig.faviconImage is not self.faviconImage:
+            if orig.faviconImage is not self.faviconImage and orig.faviconImage:
                 orig.del_image()
                 update = True
 
