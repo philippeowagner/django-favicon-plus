@@ -1,14 +1,14 @@
-# django-favicon #
+# django-favicon-plus #
 
- 
+Django favicon plus is a simple django app which allows you to upload a image and it renders a wide variety for html link tags to display the favicon. These different tags are used for bookmark links on mobile devices or they appear if you favorite a website in your browser. 
 
-##How to use:##
+##How to use:
 Install django-favicon using PIP.
 
     pip install git+https://github.com/yannik-ammann/django-favicon-plus.git
 
 
-add app to `INSTALLED_APPS` List in your `settings.py` file, make sure `sites`-app is also installed and a url is specified in the admin backend
+Add app to `INSTALLED_APPS` List in your `settings.py` file, make sure `sites`-app is also installed and a URL is specified in the admin backend
 
 
     INSTALLED_APPS = (
@@ -19,7 +19,7 @@ add app to `INSTALLED_APPS` List in your `settings.py` file, make sure `sites`-a
         ...
     )
     
-The defaulf `FAVICON_CONFIG` look like this, if you want something else you can define it in your settings.py. The key of the dictionary is the value for the `rel` attribut of the link tag, while the list in the value are the sizes for the `size` attribute and the image resizing.
+The default `FAVICON_CONFIG` look like this, if you want something else you can define it in your settings.py. The key of the dictionary is the value for the `rel` attribute of the link tag, while the list in the value are the sizes for the `size` attribute and the image resizing.
 
     FAVICON_CONFIG = {
         'shortcut icon': [16 ,32 ,48 ,128, 192],
@@ -29,7 +29,7 @@ The defaulf `FAVICON_CONFIG` look like this, if you want something else you can 
         'apple-touch-icon-precomposed': [57, 72, 76, 114, 120, 144, 152,180],
     }
 
-Upload an image in the admin backend --> all the size will be created, its best to take a larger base favicon eg. 256x256
+Upload an image in the admin backend --> all the size will be created, its best to take a larger base favicon
 
 use the templatetag in your base.html
 
@@ -39,33 +39,50 @@ use the templatetag in your base.html
 
 this will create (if MEDIA_URL is set to /media/ and if you didnt specified `FAVICON_CONFIG` in you settings.py):
 
-    <link rel="apple-touch-icon-precomposed" size="180x180" href="/media/favicon/fav-180_OLm8xkp.png">
-    <link rel="apple-touch-icon-precomposed" size="152x152" href="/media/favicon/fav-152_9Jc67he.png">
-    <link rel="apple-touch-icon-precomposed" size="144x144" href="/media/favicon/fav-144_ZvxBOFK.png">
-    <link rel="apple-touch-icon-precomposed" size="120x120" href="/media/favicon/fav-120_RbBHHaY.png">
-    <link rel="apple-touch-icon-precomposed" size="114x114" href="/media/favicon/fav-114_61boHJ0.png">
-    <link rel="apple-touch-icon-precomposed" size="76x76" href="/media/favicon/fav-76_LMjcgGC.png">
-    <link rel="apple-touch-icon-precomposed" size="72x72" href="/media/favicon/fav-72_GSBPE5W.png">
-    <link rel="apple-touch-icon-precomposed" size="any" href="/media/favicon/fav-57_oPOGYKW.png">
-    <link rel="apple-touch-icon" size="180x180" href="/media/favicon/fav-180_h9ozLZs.png">
-    <link rel="apple-touch-icon" size="144x144" href="/media/favicon/fav-144_RWrDXut.png">
-    <link rel="apple-touch-icon" size="114x114" href="/media/favicon/fav-114_rw5MSSo.png">
-    <link rel="apple-touch-icon" size="72x72" href="/media/favicon/fav-72_ZLXeuvm.png">
-    <link rel="apple-touch-icon" size="any" href="/media/favicon/fav-57_I8FDkD3.png">
-    <link rel="touch-icon" size="any" href="/media/favicon/fav-196_dLcxCkI.png">
-    <link rel="shortcut icon" size="192x192" href="/media/favicon/fav-192_A1TsFrv.png">
-    <link rel="shortcut icon" size="128x128" href="/media/favicon/fav-128_h7IeovO.png">
-    <link rel="shortcut icon" size="48x48" href="/media/favicon/fav-48_PH92BdV.png">
-    <link rel="shortcut icon" size="32x32" href="/media/favicon/fav-32_HbSGwrB.png">
-    <link rel="shortcut icon" size="any" href="/media/favicon/fav-16_oQulYqJ.png">
-    <link rel="icon" size="any" href="/media/favicon/fav-196_3XOHSqi.png">
+    <link rel="apple-touch-icon-precomposed" size ="180x180" href="/media/favicon/fav-180.png"/>
+    <link rel="apple-touch-icon-precomposed" size ="152x152" href="/media/favicon/fav-152.png"/>
+    <link rel="apple-touch-icon-precomposed" size ="144x144" href="/media/favicon/fav-144.png"/>
+    <link rel="apple-touch-icon-precomposed" size ="120x120" href="/media/favicon/fav-120.png"/>
+    <link rel="apple-touch-icon-precomposed" size ="114x114" href="/media/favicon/fav-114.png"/>
+    <link rel="apple-touch-icon-precomposed" size ="76x76" href="/media/favicon/fav-76.png"/>
+    <link rel="apple-touch-icon-precomposed" size ="72x72" href="/media/favicon/fav-72.png"/>
+    <link rel="apple-touch-icon-precomposed" size ="57x57" href="/media/favicon/fav-57.png"/>
+    <link rel="apple-touch-icon" size ="180x180" href="/media/favicon/fav-180_5l5PyO1.png"/>
+    <link rel="apple-touch-icon" size ="144x144" href="/media/favicon/fav-144_5A8THfC.png"/>
+    <link rel="apple-touch-icon" size ="114x114" href="/media/favicon/fav-114_GqBGFXA.png"/>
+    <link rel="apple-touch-icon" size ="72x72" href="/media/favicon/fav-72_UoWu9ik.png"/>
+    <link rel="apple-touch-icon" size ="57x57" href="/media/favicon/fav-57_sfX3XoJ.png"/>
+    <link rel="touch-icon" size ="192x192" href="/media/favicon/fav-192.png"/>
+    <link rel="shortcut icon" size ="192x192" href="/media/favicon/fav-192_rD0bCKr.png"/>
+    <link rel="shortcut icon" size ="128x128" href="/media/favicon/fav-128.png"/>
+    <link rel="shortcut icon" size ="48x48" href="/media/favicon/fav-48.png"/>
+    <link rel="shortcut icon" size ="32x32" href="/media/favicon/fav-32.png"/>
+    <link rel="shortcut icon" size ="16x16" href="/media/favicon/fav-16.png"/>
+    <link rel="icon" size ="192x192" href="/media/favicon/fav-192_Gw5Uu1M.png"/>
+    <link rel="shortcut icon" size ="32x32" href="/media/favicon/fav-32.png"/>
 
-##favicon##
+## Management
+
+You can upload multiple images, but only one is set as favicon and used.
+
+
+## Contribution
+
+If you want to contribute something send a PR.
+
+
+#Source
+
+### Based on 
+
+[Favicon Cheat Sheet on github](https://github.com/audreyr/favicon-cheat-sheet)
+
+###Favicon
 16x16 .ico or better .png
     
     <link rel="shortcut icon" href="/images/favicon.png" />
 
-###apple-touch-icon(-precomposed)###
+###apple-touch-icon(-precomposed)
 57x57, 72x72, 114x114, and 144x144
 highest resolution for ipad retina 144x144.png precomposed(=iOS won’t add any effects to the icon)
     
