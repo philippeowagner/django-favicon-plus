@@ -5,8 +5,11 @@ Django favicon plus is a simple django app which allows you to upload a image an
 ##How to use:
 Install django-favicon using PIP.
 
-    pip install git+https://github.com/yannik-ammann/django-favicon-plus.git
-
+    pip install django-favicon-plus
+     
+    pip install git+https://github.com/arteria/django-favicon-plus.git
+    
+    
 
 Add app to `INSTALLED_APPS` List in your `settings.py` file, make sure `sites`-app is also installed and a URL is specified in the admin backend
 
