@@ -1,14 +1,13 @@
 from compat import python_2_unicode_compatible
 
+import sys
+
 from django.db import models
 from django.conf import settings
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
 from PIL import Image
-try:
-    from StringIO import StringIO
-except ImportError:
-    from io import StringIO
+from compat import BytesIO
 
 config = {
     'shortcut icon': [16, 32, 48, 128, 192],
@@ -66,11 +65,11 @@ class Favicon(models.Model):
             tmp = Image.open(self.faviconImage.path)
             tmp.thumbnail((size, size), Image.ANTIALIAS)
 
-            tmpIO = StringIO()
+            tmpIO = BytesIO()
             tmp.save(tmpIO, format='PNG')
             tmpFile = InMemoryUploadedFile(
                 tmpIO, None, 'fav-%s.png' %
-                (size,), 'image/png', tmpIO.len, None)
+                (size,), 'image/png', sys.getsizeof(tmpIO), None)
 
             fav.faviconImage = tmpFile
             fav.save()
