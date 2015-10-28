@@ -10,6 +10,7 @@ version = favicon.__version__
 setup(
     name='django-favicon-plus',
     version=version,
+    url='https://github.com/arteria/django-favicon-plus/',
     packages=find_packages(),
     license='BSD',
     description='Favicon app for django',
