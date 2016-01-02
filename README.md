@@ -37,7 +37,7 @@ use the templatetag in your base.html
 ```html+django
 {% load favtags %}
     
-{% placeFavicon %}
+{% autoescape off %}{% placeFavicon %}{% endautoescape %}
 ```
 this will create (if MEDIA_URL is set to /media/ and if you didnt specified `FAVICON_CONFIG` in you settings.py):
 ```html
