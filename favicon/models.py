@@ -4,6 +4,7 @@ import sys
 
 from django.db import models
 from django.conf import settings
+from django.core.files.storage import default_storage as storage
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
 from PIL import Image
@@ -62,7 +63,7 @@ class Favicon(models.Model):
         if update and fav.faviconImage:
             fav.del_image()
         if self.faviconImage and not fav.faviconImage:
-            tmp = Image.open(self.faviconImage.path)
+            tmp = Image.open(storage.open(self.faviconImage.name))
             tmp.thumbnail((size, size), Image.ANTIALIAS)
 
             tmpIO = BytesIO()
