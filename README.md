@@ -39,7 +39,7 @@ use the templatetag in your base.html
     
 {% autoescape off %}{% placeFavicon %}{% endautoescape %}
 ```
-this will create (if MEDIA_URL is set to /media/ and if you didnt specified `FAVICON_CONFIG` in you settings.py):
+this will create:
 ```html
 <link rel="apple-touch-icon-precomposed" size ="180x180" href="/media/favicon/fav-180.png"/>
 <link rel="apple-touch-icon-precomposed" size ="152x152" href="/media/favicon/fav-152.png"/>
