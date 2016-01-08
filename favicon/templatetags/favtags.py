@@ -1,5 +1,4 @@
 from django import template
-from favicon.models import Favicon
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 
@@ -7,8 +6,6 @@ from favicon.models import Favicon
 from favicon.models import config
 
 register = template.Library()
-
-media_url = getattr(settings, 'MEDIA_URL', False)
 
 
 @register.simple_tag(takes_context=True)
@@ -19,11 +16,8 @@ def placeFavicon(context):
     Template Syntax:
 
         {% placeFavicon %}
+
     """
-
-    if not media_url:
-        raise ImproperlyConfigured('MEDIA_URL not found in settings')
-
     fav = Favicon.objects.filter(isFavicon=True)
     if not fav:
         return '<!-- no favicon -->'
@@ -56,11 +50,11 @@ def placeFavicon(context):
     for rel in config:
         for size in sorted(config[rel], reverse=True):
             n = fav.get_favicon(size=size, rel=rel)
-            html += '<link rel="%s" size ="%sx%s" href="%s%s"/>' % (
-                n.rel, n.size, n.size, media_url, n.faviconImage.name)
+            html += '<link rel="%s" size ="%sx%s" href="%s"/>' % (
+                n.rel, n.size, n.size, n.faviconImage.url)
 
     default_fav = fav.get_favicon(size=32, rel='shortcut icon')
-    html += '<link rel="%s" size ="%sx%s" href="%s%s"/>' % (
-        default_fav.rel, default_fav.size, default_fav.size, media_url, default_fav.faviconImage.name)
+    html += '<link rel="%s" size ="%sx%s" href="%s"/>' % (
+        default_fav.rel, default_fav.size, default_fav.size, default_fav.faviconImage.url)
 
     return html
