@@ -1,5 +1,6 @@
 import os
 import sys
+import codecs
 import favicon
 
 from distutils.core import setup
@@ -14,7 +15,7 @@ setup(
     packages=find_packages(),
     license='BSD',
     description='Favicon app for django',
-    long_description=open('README.md').read(),
+    long_description=codecs.open('README.md', encoding='utf-8').read(),
     install_requires=open('requirements.txt').read().split('\n'),
     author='arteria GMBH',
     include_package_data=True,
