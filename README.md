@@ -37,7 +37,7 @@ use the templatetag in your base.html
 ```html+django
 {% load favtags %}
     
-{% autoescape off %}{% placeFavicon %}{% endautoescape %}
+{% placeFavicon %}
 ```
 this will create:
 ```html
