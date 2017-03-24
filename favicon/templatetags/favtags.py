@@ -18,7 +18,7 @@ def placeFavicon(context):
     """
     fav = Favicon.objects.filter(isFavicon=True).first()
     if not fav:
-        return '<!-- no favicon -->'
+        return mark_safe('<!-- no favicon -->')
     html = ''
     for rel in config:
         for size in sorted(config[rel], reverse=True):
