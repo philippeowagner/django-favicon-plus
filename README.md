@@ -103,3 +103,8 @@ Android versions 1.5 and 1.6 will read the second tag (with "-precomposed"), and
 Google's specifications say that you should use 48x48 pixel PNGs, but you can use a large image (128x128), like Google does for its own apps.
 
 https://mathiasbynens.be/notes/touch-icons
+
+
+
+| django-favicon-plus is free software. If you find it useful and would like to give back, please consider to make a donation using [Bitcoin](https://blockchain.info/payment_request?address=1AJkbQdcNkrHzxi91mB1kkPxh4t4BJ4hu4) or [PayPal](https://www.paypal.me/arteriagmbh). Thank you! |
+| ----- |
