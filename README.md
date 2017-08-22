@@ -2,7 +2,7 @@
 
 Django favicon plus is a simple django app which allows you to upload a image and it renders a wide variety for html link tags to display the favicon. These different tags are used for bookmark links on mobile devices or they appear if you favorite a website in your browser. 
 
-##How to use:
+## How to use:
 Install django-favicon using PIP.
 ```shell
 pip install django-favicon-plus
@@ -79,12 +79,12 @@ If you want to contribute something send a PR.
 
 [Favicon Cheat Sheet on github](https://github.com/audreyr/favicon-cheat-sheet)
 
-###Favicon
+### Favicon
 16x16 .ico or better .png
 ```html
 <link rel="shortcut icon" href="/images/favicon.png" />
 ```
-###apple-touch-icon(-precomposed)
+### apple-touch-icon(-precomposed)
 57x57, 72x72, 114x114, and 144x144
 highest resolution for ipad retina 144x144.png precomposed(=iOS won’t add any effects to the icon)
 ```html
