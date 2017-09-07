@@ -1,4 +1,6 @@
-# django-favicon-plus #
+# django-favicon-plus
+
+[![PyPI](https://img.shields.io/pypi/v/django-favicon-plus.svg)](https://pypi.python.org/pypi/django-favicon-plus)
 
 Django favicon plus is a simple django app which allows you to upload a image and it renders a wide variety for html link tags to display the favicon. These different tags are used for bookmark links on mobile devices or they appear if you favorite a website in your browser. 
 
