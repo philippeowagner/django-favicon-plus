@@ -97,7 +97,7 @@ class Favicon(models.Model):
 
 
 class FaviconImg(models.Model):
-    faviconFK = models.ForeignKey(Favicon)
+    faviconFK = models.ForeignKey(Favicon, on_delete=models.CASCADE)
     size = models.IntegerField()
     rel = models.CharField(max_length=250, null=True)
     faviconImage = models.ImageField(upload_to='favicon')
