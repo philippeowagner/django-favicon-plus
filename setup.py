@@ -34,5 +34,6 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Topic :: Internet :: WWW/HTTP',
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
-    ]
+    ],
+    zip_safe=False
 )
