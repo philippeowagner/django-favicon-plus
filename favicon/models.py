@@ -1,5 +1,3 @@
-from compat import python_2_unicode_compatible
-
 import sys
 
 from django.db import models
@@ -24,7 +22,6 @@ def pre_delete_image(sender, instance, **kwargs):
     instance.del_image()
 
 
-@python_2_unicode_compatible
 class Favicon(models.Model):
 
     title = models.CharField(max_length=100)
